@@ -31,7 +31,7 @@ object Functions {
 }
 
 @main
-def main() = {
+def mainFunctions() = {
   import Functions.*
   println("Part 1")
   println("Method:")
