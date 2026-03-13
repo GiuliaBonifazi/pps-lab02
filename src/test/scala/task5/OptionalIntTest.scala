@@ -14,11 +14,23 @@ class OptionalIntTest:
     assertFalse(OptionalInt.isEmpty(nonEmpty))
 
   @Test def orElseShouldReturnDefaultWhenEmpty(): Unit =
-    val nonEmpty = OptionalInt.Just(0)
-    assertEquals(0, OptionalInt.orElse(nonEmpty, 1))
-
-  @Test def orElseShouldReturnValueWhenNonEmpty(): Unit =
     val empty = OptionalInt.Empty()
     assertEquals(1, OptionalInt.orElse(empty, 1))
 
+  @Test def orElseShouldReturnValueWhenNonEmpty(): Unit =
+    val nonEmpty = OptionalInt.Just(0)
+    assertEquals(0, OptionalInt.orElse(nonEmpty, 1))
+
   /** Task 5: do test for map **/
+  @Test def mapIntShouldReturnMappedValueWhenNonEmpty(): Unit =
+    val value = 5
+    val nonEmpty = OptionalInt.Just(value)
+    val mapFunction: (Int) => Int = x => x + 1
+    assertEquals(
+      OptionalInt.Just(mapFunction(value)),
+      OptionalInt.mapInt(nonEmpty)(mapFunction)
+    )
+
+  @Test def mapIntShouldReturnEmptyWhenEmpty(): Unit =
+    val empty = OptionalInt.Empty()
+    assertEquals(OptionalInt.Empty(), OptionalInt.mapInt(empty)(_ + 1))
